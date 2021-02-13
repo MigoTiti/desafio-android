@@ -3,6 +3,8 @@ package com.lucasrodrigues.apodnasa.data.local.dao
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.lucasrodrigues.apodnasa.domain.model.dbo.ApodDBO
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import java.util.*
 
 @Dao
@@ -21,4 +23,7 @@ interface ApodDao : BaseDao<ApodDBO> {
             time.time
         }
     ): PagingSource<Int, ApodDBO>
+
+    @Query("SELECT * FROM apods ORDER BY timestamp DESC LIMIT 1")
+    fun listenToMostRecentApod(): Flow<ApodDBO>
 }

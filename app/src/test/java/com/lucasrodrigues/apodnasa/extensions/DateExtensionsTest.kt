@@ -74,4 +74,15 @@ class DateExtensionsTest {
             date.minusDays(10)
         )
     }
+
+    @Test
+    fun `Create date - Should create correct date`() {
+        assertEquals(
+            Calendar.getInstance().apply {
+                clear()
+                set(2021, Calendar.MAY, 21)
+            }.time,
+            createDate(21, Calendar.MAY, 2021)
+        )
+    }
 }

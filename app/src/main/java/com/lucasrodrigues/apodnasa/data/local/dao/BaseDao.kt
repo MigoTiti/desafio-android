@@ -13,6 +13,9 @@ interface BaseDao<T> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(vararg items: T)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertList(items: List<T>)
+
     @Update
     suspend fun update(item: T)
 }

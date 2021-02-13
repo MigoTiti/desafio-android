@@ -2,6 +2,14 @@ package com.lucasrodrigues.apodnasa.extensions
 
 import java.util.*
 
+fun createDate(day: Int, month: Int, year: Int): Date {
+    return Calendar.getInstance().run {
+        clear()
+        set(year, month, day)
+        time
+    }
+}
+
 fun Date.yesterday(): Date {
     return Calendar.getInstance().run {
         time = this@yesterday

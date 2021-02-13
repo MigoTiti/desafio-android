@@ -5,5 +5,5 @@ import java.util.*
 
 interface ApodRepository {
 
-    suspend fun getApodPage(initialDate: Date, pageSize: Int): List<ApodDBO>
+    suspend fun getApodPage(referenceDate: Date, pageSize: Int): List<ApodDBO>
 }

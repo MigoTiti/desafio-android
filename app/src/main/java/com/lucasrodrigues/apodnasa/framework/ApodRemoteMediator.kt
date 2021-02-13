@@ -54,7 +54,7 @@ class ApodRemoteMediator(
             it.data.isNotEmpty()
         }?.data?.firstOrNull()
             ?.let { apodDBO ->
-                Date(apodDBO.timestamp).minusDays(state.config.pageSize)
+                Date(apodDBO.timestamp)
             }
     }
 
