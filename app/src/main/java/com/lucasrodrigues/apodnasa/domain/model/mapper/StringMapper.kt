@@ -2,7 +2,6 @@ package com.lucasrodrigues.apodnasa.domain.model.mapper
 
 import java.util.*
 
-@Synchronized
 fun String.toDate(): Date {
     return Calendar.getInstance().run {
         val dateRaw = this@toDate.split("-")

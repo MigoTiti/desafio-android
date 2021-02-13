@@ -1,12 +1,17 @@
 buildscript {
+    ext {
+        compose = "1.0.0-alpha10"
+        kotlin = "1.4.21"
+    }
+
     repositories {
         google()
         jcenter()
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.0-alpha05"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
+        classpath 'com.android.tools.build:gradle:7.0.0-alpha06'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin}"
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.28-alpha"
     }
 }

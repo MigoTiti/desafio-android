@@ -8,7 +8,7 @@ import java.util.Calendar.JANUARY
 class StringMapperTest {
 
     @Test
-    fun `Should map correct date`() {
+    fun `Should map to correct date`() {
         val expectedDate = Calendar.getInstance().run {
             clear()
             set(2021, JANUARY, 12)

@@ -3,7 +3,9 @@ package com.lucasrodrigues.apodnasa.domain.model.dbo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(
+    tableName = "apods"
+)
 data class ApodDBO(
     @PrimaryKey val timestamp: Long,
     val title: String,
