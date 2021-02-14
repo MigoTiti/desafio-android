@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApodAPI {
 
-    @GET
+    @GET("/planetary/apod/")
     suspend fun fetchApodList(
         @Query("start_date") startDate: String,
         @Query("end_date") endDate: String,
