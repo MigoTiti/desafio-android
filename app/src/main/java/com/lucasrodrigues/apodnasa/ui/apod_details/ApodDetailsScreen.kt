@@ -7,7 +7,7 @@ import androidx.compose.runtime.livedata.observeAsState
 
 @Composable
 fun ApodDetailsScreen(viewModel: ApodDetailsViewModel) {
-    val timestamp by viewModel.apod.observeAsState()
+    val apod by viewModel.apod.observeAsState()
 
-    Text(text = timestamp?.toString() ?: "")
+    Text(text = apod?.title ?: "")
 }

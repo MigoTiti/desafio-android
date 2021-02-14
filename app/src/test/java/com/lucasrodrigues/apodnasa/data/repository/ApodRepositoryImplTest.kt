@@ -42,17 +42,79 @@ class ApodRepositoryImplTest {
     }
 
     @Test
-    fun `Get today Apod - Should call dao`() = runBlockingTest {
+    fun `Get Apod - Should call dao`() = runBlockingTest {
         mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
 
         val expectedApodDBO = mockk<ApodDBO>(relaxed = true)
 
         every {
-            apodDao.listenToMostRecentApod()
+            apodDao.listenToApod(any())
         } returns flowOf(expectedApodDBO)
 
         every {
             expectedApodDBO.toApod()
+        } returns mockk(relaxed = true)
+
+        apodRepositoryImpl.getApod(0L).single()
+
+        verify {
+            apodDao.listenToApod(any())
+        }
+    }
+
+    @Test
+    fun `Get Apod - Should pass parameters to dao`() = runBlockingTest {
+        mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
+
+        val expectedTimestamp = 0L
+        val timestampSlot = slot<Long>()
+
+        every {
+            apodDao.listenToApod(capture(timestampSlot))
+        } returns flowOf(mockk(relaxed = true))
+
+        every {
+            any<ApodDBO>().toApod()
+        } returns mockk(relaxed = true)
+
+        apodRepositoryImpl.getApod(expectedTimestamp).single()
+
+        assertEquals(
+            expectedTimestamp,
+            timestampSlot.captured,
+        )
+    }
+
+    @Test
+    fun `Get Apod - Should map dbo`() = runBlockingTest {
+        mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
+
+        val expectedApodDBO = mockk<ApodDBO>(relaxed = true)
+        val expectedApod = mockk<Apod>(relaxed = true)
+
+        every {
+            apodDao.listenToApod(any())
+        } returns flowOf(expectedApodDBO)
+
+        every {
+            expectedApodDBO.toApod()
+        } returns expectedApod
+
+        apodRepositoryImpl.getApod(0L).collect {
+            assertEquals(expectedApod, it)
+        }
+    }
+
+    @Test
+    fun `Get today Apod - Should call dao`() = runBlockingTest {
+        mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
+
+        every {
+            apodDao.listenToMostRecentApod()
+        } returns flowOf(mockk(relaxed = true))
+
+        every {
+            any<ApodDBO>().toApod()
         } returns mockk(relaxed = true)
 
         apodRepositoryImpl.getTodayApod().single()

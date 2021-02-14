@@ -12,4 +12,5 @@ interface ApodRepository {
 
     fun getApodPaginatedList(): Flow<PagingData<Apod>>
     fun getTodayApod(): Flow<Apod>
+    fun getApod(timestamp: Long): Flow<Apod>
 }

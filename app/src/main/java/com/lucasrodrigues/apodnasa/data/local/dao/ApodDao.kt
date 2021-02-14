@@ -26,4 +26,7 @@ interface ApodDao : BaseDao<ApodDBO> {
 
     @Query("SELECT * FROM apods ORDER BY timestamp DESC LIMIT 1")
     fun listenToMostRecentApod(): Flow<ApodDBO>
+
+    @Query("SELECT * FROM apods WHERE timestamp = :timestamp")
+    fun listenToApod(timestamp: Long): Flow<ApodDBO>
 }

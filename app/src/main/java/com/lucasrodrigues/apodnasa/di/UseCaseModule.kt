@@ -1,5 +1,6 @@
 package com.lucasrodrigues.apodnasa.di
 
+import com.lucasrodrigues.apodnasa.domain.interactor.ListenToApod
 import com.lucasrodrigues.apodnasa.domain.interactor.ListenToPreviousDaysApods
 import com.lucasrodrigues.apodnasa.domain.interactor.ListenToTodayApod
 import com.lucasrodrigues.apodnasa.domain.repository.ApodRepository
@@ -23,5 +24,11 @@ object UseCaseModule {
     @ViewModelScoped
     fun provideListenToPreviousDaysApods(apodRepository: ApodRepository): ListenToPreviousDaysApods {
         return ListenToPreviousDaysApods(apodRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideListenToApod(apodRepository: ApodRepository): ListenToApod {
+        return ListenToApod(apodRepository)
     }
 }
