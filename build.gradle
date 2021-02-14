@@ -1,7 +1,7 @@
 buildscript {
     ext {
         compose = "1.0.0-alpha12"
-        kotlin = "1.4.30-RC"
+        kotlin = "1.4.30"
         nav = "2.3.3"
     }
 

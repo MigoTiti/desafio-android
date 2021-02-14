@@ -27,7 +27,7 @@ fun ApodItem(apod: Apod, modifier: Modifier = Modifier) {
         Box(
             modifier = Modifier
                 .padding(start = 16.dp)
-                .fillMaxWidth(fraction = 0.35f)
+                .width(150.dp)
                 .aspectRatio(16f / 12f)
         ) {
             when (apod.content) {
@@ -71,7 +71,8 @@ fun ApodImageContent(content: MediaContent.Image) {
 
 @Composable
 fun ApodThumbnail(thumbnailUrl: String) {
-    CoilImage(data = thumbnailUrl) { imageState ->
+    CoilImage(
+        data = thumbnailUrl) { imageState ->
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,

@@ -24,6 +24,7 @@ class ApodDataSourceTest {
     fun setUp() {
         MockKAnnotations.init(this)
         apodDataSource = ApodDataSource(apodApi)
+        unmockkAll()
     }
 
     @Test

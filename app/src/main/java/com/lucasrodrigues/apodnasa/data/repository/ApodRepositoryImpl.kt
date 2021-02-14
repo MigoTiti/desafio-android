@@ -41,6 +41,14 @@ class ApodRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getTodayApod(): Flow<Apod> {
+        return apodDao
+            .listenToMostRecentApod()
+            .map {
+                it.toApod()
+            }
+    }
+
     @ExperimentalPagingApi
     override fun getApodPaginatedList(): Flow<PagingData<Apod>> {
         return Pager(

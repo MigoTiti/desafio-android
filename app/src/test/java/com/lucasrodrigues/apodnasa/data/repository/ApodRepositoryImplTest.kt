@@ -2,8 +2,10 @@ package com.lucasrodrigues.apodnasa.data.repository
 
 import com.lucasrodrigues.apodnasa.data.local.dao.ApodDao
 import com.lucasrodrigues.apodnasa.data.remote.data_source.ApodDataSource
+import com.lucasrodrigues.apodnasa.domain.model.Apod
 import com.lucasrodrigues.apodnasa.domain.model.dbo.ApodDBO
 import com.lucasrodrigues.apodnasa.domain.model.dto.ApodDTO
+import com.lucasrodrigues.apodnasa.domain.model.mapper.toApod
 import com.lucasrodrigues.apodnasa.domain.model.mapper.toApodDBO
 import com.lucasrodrigues.apodnasa.domain.model.mapper.toServerString
 import com.lucasrodrigues.apodnasa.extensions.createDate
@@ -11,6 +13,9 @@ import com.lucasrodrigues.apodnasa.extensions.minusDays
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
@@ -33,6 +38,48 @@ class ApodRepositoryImplTest {
     fun setUp() {
         MockKAnnotations.init(this)
         apodRepositoryImpl = ApodRepositoryImpl(apodDataSource, apodDao)
+        unmockkAll()
+    }
+
+    @Test
+    fun `Get today Apod - Should call dao`() = runBlockingTest {
+        mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
+
+        val expectedApodDBO = mockk<ApodDBO>(relaxed = true)
+
+        every {
+            apodDao.listenToMostRecentApod()
+        } returns flowOf(expectedApodDBO)
+
+        every {
+            expectedApodDBO.toApod()
+        } returns mockk(relaxed = true)
+
+        apodRepositoryImpl.getTodayApod().single()
+
+        verify {
+            apodDao.listenToMostRecentApod()
+        }
+    }
+
+    @Test
+    fun `Get today Apod - Should map dbo`() = runBlockingTest {
+        mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
+
+        val expectedApodDBO = mockk<ApodDBO>(relaxed = true)
+        val expectedApod = mockk<Apod>(relaxed = true)
+
+        every {
+            apodDao.listenToMostRecentApod()
+        } returns flowOf(expectedApodDBO)
+
+        every {
+            expectedApodDBO.toApod()
+        } returns expectedApod
+
+        apodRepositoryImpl.getTodayApod().collect {
+            assertEquals(expectedApod, it)
+        }
     }
 
     @Test

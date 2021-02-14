@@ -6,11 +6,18 @@ import com.lucasrodrigues.apodnasa.domain.model.dto.ApodDTO
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
+import io.mockk.unmockkAll
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import java.util.*
 
 class ApodMapperTest {
+
+    @Before
+    fun setUp() {
+        unmockkAll()
+    }
 
     @Test
     fun `ApodDTO to Apod - Should map common data correctly`() {

@@ -1,10 +1,17 @@
 package com.lucasrodrigues.apodnasa.extensions
 
+import io.mockk.unmockkAll
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import java.util.*
 
 class DateExtensionsTest {
+
+    @Before
+    fun setUp() {
+        unmockkAll()
+    }
 
     @Test
     fun `Yesterday - Should return one day before date`() {
