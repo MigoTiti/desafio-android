@@ -7,11 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.lucasrodrigues.apodnasa.domain.model.Apod
+import com.lucasrodrigues.apodnasa.extensions.navigate
+import com.lucasrodrigues.apodnasa.ui.routing.Route
 import kotlinx.coroutines.flow.Flow
 
 @Composable
@@ -28,7 +29,7 @@ fun ApodPagedList(
                 modifier = Modifier
                     .padding(top = 16.dp)
                     .clickable {
-                        navController.navigate("apod_details/${item.date.time}")
+                        navController.navigate(Route.APOD_DETAILS, listOf(item.date.time))
                     },
             )
         }

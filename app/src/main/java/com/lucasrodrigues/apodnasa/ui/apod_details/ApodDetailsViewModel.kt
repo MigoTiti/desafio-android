@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ApodDetailsViewModel @Inject constructor(
-    private val listenToApod: ListenToApod,
-    private val savedStateHandle: SavedStateHandle
+    listenToApod: ListenToApod,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     val apod = listenToApod(

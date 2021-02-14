@@ -6,13 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.lucasrodrigues.apodnasa.extensions.routeComposable
 import com.lucasrodrigues.apodnasa.ui.apod_details.ApodDetailsScreen
 import com.lucasrodrigues.apodnasa.ui.home.HomeScreen
+import com.lucasrodrigues.apodnasa.ui.routing.Route
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,9 +25,9 @@ class MainActivity : AppCompatActivity() {
 
             NavHost(
                 navController = navController,
-                startDestination = "home"
+                startDestination = Route.HOME.fullName
             ) {
-                composable("home") {
+                routeComposable(Route.HOME) {
                     HomeScreen(
                         viewModel = viewModel(
                             factory = HiltViewModelFactory(LocalContext.current, it)
@@ -36,14 +35,7 @@ class MainActivity : AppCompatActivity() {
                         navController = navController,
                     )
                 }
-                composable(
-                    route = "apod_details/{apodTimestamp}",
-                    arguments = listOf(
-                        navArgument("apodTimestamp") {
-                            type = NavType.LongType
-                        }
-                    )
-                ) {
+                routeComposable(Route.APOD_DETAILS) {
                     ApodDetailsScreen(
                         viewModel = viewModel(
                             factory = HiltViewModelFactory(LocalContext.current, it)
