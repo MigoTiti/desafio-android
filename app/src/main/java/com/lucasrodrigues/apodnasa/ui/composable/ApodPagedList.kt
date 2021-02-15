@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -13,6 +14,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.lucasrodrigues.apodnasa.domain.model.Apod
+import com.lucasrodrigues.apodnasa.domain.model.Failure
 import com.lucasrodrigues.apodnasa.extension.navigate
 import com.lucasrodrigues.apodnasa.ui.routing.Route
 import kotlinx.coroutines.flow.Flow
@@ -39,11 +41,11 @@ fun ApodPagedList(
         lazyList.apply {
             when {
                 loadState.refresh is LoadState.Loading -> {
-                    item { Loading(modifier = Modifier.fillParentMaxSize()) }
+                    item { LoadingItem(modifier = Modifier.fillParentMaxSize()) }
                 }
                 loadState.append is LoadState.Loading -> {
                     item {
-                        Loading(
+                        LoadingItem(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 32.dp)
@@ -51,26 +53,33 @@ fun ApodPagedList(
                     }
                 }
                 loadState.refresh is LoadState.Error -> {
-                    if (lazyList.itemCount == 0) {
+                    val e = lazyList.loadState.refresh as LoadState.Error
 
+                    if (lazyList.itemCount == 0) {
+                        (e.error as? Failure)?.let {
+                            item {
+                                ErrorItem(
+                                    error = it,
+                                    modifier = Modifier.fillParentMaxSize(),
+                                    textStyle = MaterialTheme.typography.h6,
+                                ) { retry() }
+                            }
+                        }
                     }
-//                    val e = lazyMovieItems.loadState.refresh as LoadState.Error
-//                    item {
-//                        ErrorItem(
-//                            message = e.error.localizedMessage!!,
-//                            modifier = Modifier.fillParentMaxSize(),
-//                            onClickRetry = { retry() }
-//                        )
-//                    }
                 }
                 loadState.append is LoadState.Error -> {
-//                    val e = lazyMovieItems.loadState.append as LoadState.Error
-//                    item {
-//                        ErrorItem(
-//                            message = e.error.localizedMessage!!,
-//                            onClickRetry = { retry() }
-//                        )
-//                    }
+                    val e = lazyList.loadState.append as LoadState.Error
+
+                    (e.error as? Failure)?.let {
+                        item {
+                            ErrorItem(
+                                error = it,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 32.dp)
+                            ) { retry() }
+                        }
+                    }
                 }
             }
         }

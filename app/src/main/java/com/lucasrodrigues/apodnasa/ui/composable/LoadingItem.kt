@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun Loading(modifier: Modifier = Modifier) {
+fun LoadingItem(modifier: Modifier = Modifier) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
