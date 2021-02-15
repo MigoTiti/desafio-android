@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                         viewModel = viewModel(
                             factory = HiltViewModelFactory(LocalContext.current, it)
                         ),
+                        navController = navController,
                     )
                 }
             }

@@ -51,6 +51,9 @@ fun ApodPagedList(
                     }
                 }
                 loadState.refresh is LoadState.Error -> {
+                    if (lazyList.itemCount == 0) {
+
+                    }
 //                    val e = lazyMovieItems.loadState.refresh as LoadState.Error
 //                    item {
 //                        ErrorItem(
