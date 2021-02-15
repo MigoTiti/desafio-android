@@ -14,6 +14,6 @@ class VimeoDataSource @Inject constructor(
 
         return videoDetails.request.files.progressive.maxByOrNull {
             it.width
-        }!!.url
+        }?.url ?: ""
     }
 }

@@ -2,6 +2,7 @@ package com.lucasrodrigues.apodnasa.data.repository
 
 import com.lucasrodrigues.apodnasa.data.local.dao.ApodDao
 import com.lucasrodrigues.apodnasa.data.remote.data_source.ApodDataSource
+import com.lucasrodrigues.apodnasa.data.remote.data_source.VimeoDataSource
 import com.lucasrodrigues.apodnasa.domain.model.Apod
 import com.lucasrodrigues.apodnasa.domain.model.dbo.ApodDBO
 import com.lucasrodrigues.apodnasa.domain.model.dto.ApodDTO
@@ -30,6 +31,9 @@ class ApodRepositoryImplTest {
     lateinit var apodDataSource: ApodDataSource
 
     @RelaxedMockK
+    lateinit var vimeoDataSource: VimeoDataSource
+
+    @RelaxedMockK
     lateinit var apodDao: ApodDao
 
     private lateinit var apodRepositoryImpl: ApodRepositoryImpl
@@ -37,7 +41,7 @@ class ApodRepositoryImplTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        apodRepositoryImpl = ApodRepositoryImpl(apodDataSource, apodDao)
+        apodRepositoryImpl = ApodRepositoryImpl(apodDataSource, vimeoDataSource, apodDao)
         unmockkAll()
     }
 
@@ -326,6 +330,35 @@ class ApodRepositoryImplTest {
                 endDateSlot.captured.toServerString(),
             )
         }
+
+    @Test
+    fun `Get Apod page - should correct vimeo url for videos`() = runBlockingTest {
+        coEvery {
+            apodDataSource.fetchApodList(any(), any())
+        } returns listOf(
+            ApodDTO(
+                date = "2020-01-01",
+                title = "",
+                explanation = "",
+                media_type = "video",
+                url = "https://player.vimeo.com/video/1234",
+                serviceVersion = "v1",
+            ),
+        )
+
+        val expectedUrl = "urlNova"
+
+        coEvery {
+            vimeoDataSource.fetchVimeoVideoUrl(any())
+        } returns expectedUrl
+
+        assertSame(
+            expectedUrl,
+            apodRepositoryImpl
+                .getApodPage(Date(), 1)[0]
+                .contentUrl,
+        )
+    }
 
     @Test
     fun `Get Apod page - Should call mapping function in DTO to DBO`() = runBlockingTest {
