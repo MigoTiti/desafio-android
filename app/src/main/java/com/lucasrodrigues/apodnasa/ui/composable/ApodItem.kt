@@ -14,8 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.lucasrodrigues.apodnasa.R
 import com.lucasrodrigues.apodnasa.domain.model.Apod
 import com.lucasrodrigues.apodnasa.domain.model.MediaContent
 import java.text.SimpleDateFormat
@@ -52,7 +54,10 @@ fun ApodItem(apod: Apod, modifier: Modifier = Modifier) {
                 overflow = TextOverflow.Ellipsis,
             )
             Text(
-                text = "Criado em: ${SimpleDateFormat("dd/MM/yyyy").format(apod.date)}",
+                text = stringResource(
+                    R.string.label_created_at,
+                    SimpleDateFormat("dd/MM/yyyy").format(apod.date),
+                ),
                 style = MaterialTheme.typography.caption,
             )
         }

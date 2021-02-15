@@ -21,7 +21,9 @@ android {
 
         buildConfigField "String", "APOD_API_KEY", '"35IEp9JkR4RDzAzcI7UmtZSc6u7ZWQgYE4ai7KHJ"'
         buildConfigField "String", "APOD_BASE_URL", '"https://api.nasa.gov/"'
+
         buildConfigField "String", "VIMEO_BASE_URL", '"https://player.vimeo.com/"'
+        buildConfigField "String", "VIMEO_VIDEO_FULL_URL", '"https://player.vimeo.com/video/"'
     }
 
     buildTypes {
@@ -30,19 +32,6 @@ android {
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-        }
-    }
-
-    flavorDimensions "api"
-
-    productFlavors {
-        integration {
-            dimension "api"
-        }
-
-        mock {
-            dimension "api"
-            versionNameSuffix "-mock"
         }
     }
 

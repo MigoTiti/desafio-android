@@ -1,3 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">APOD NASA</string>
+
+    <string name="label_details">Details</string>
+    <string name="label_created_at">Created at: %s</string>
+    <string name="label_no_available_resource">No available resource</string>
+    <string name="label_today">Today</string>
+
+    <string name="error_internet_connection">Check your internet connection</string>
+    <string name="button_label_try_again">Try again</string>
 </resources>

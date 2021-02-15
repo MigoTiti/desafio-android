@@ -10,9 +10,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
+import com.lucasrodrigues.apodnasa.R
 import com.lucasrodrigues.apodnasa.domain.model.Apod
 import com.lucasrodrigues.apodnasa.extension.navigate
 import com.lucasrodrigues.apodnasa.ui.routing.Route
@@ -32,7 +34,7 @@ fun TodayApodItem(apodLiveData: LiveData<Apod?>, navController: NavController) {
                 modifier = Modifier.padding(horizontal = 16.dp),
             ) {
                 Text(
-                    text = "Hoje",
+                    text = stringResource(R.string.label_today),
                     modifier = Modifier.padding(vertical = 8.dp),
                     style = MaterialTheme.typography.caption,
                 )

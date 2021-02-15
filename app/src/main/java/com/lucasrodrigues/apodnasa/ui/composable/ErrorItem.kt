@@ -9,8 +9,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.lucasrodrigues.apodnasa.R
 import com.lucasrodrigues.apodnasa.domain.model.Failure
 
 @Composable
@@ -27,7 +29,7 @@ fun ErrorItem(
     ) {
         Text(
             text = when (error) {
-                Failure.NetworkConnection -> "Erro na sua conexão com a internet"
+                Failure.NetworkConnection -> stringResource(R.string.error_internet_connection)
                 is Failure.ServerError -> error.value
                 is Failure.UnknownError -> error.value
             },
@@ -37,7 +39,7 @@ fun ErrorItem(
             onClick = onClickRetry,
             modifier = Modifier.padding(top = 8.dp),
         ) {
-            Text(text = "Tentar novamente")
+            Text(text = stringResource(R.string.button_label_try_again))
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.lucasrodrigues.apodnasa.data.repository
 
+import com.lucasrodrigues.apodnasa.BuildConfig
 import com.lucasrodrigues.apodnasa.data.local.dao.ApodDao
 import com.lucasrodrigues.apodnasa.data.remote.data_source.ApodDataSource
 import com.lucasrodrigues.apodnasa.data.remote.data_source.VimeoDataSource
@@ -341,7 +342,7 @@ class ApodRepositoryImplTest {
                 title = "",
                 explanation = "",
                 media_type = "video",
-                url = "https://player.vimeo.com/video/1234",
+                url = "${BuildConfig.VIMEO_VIDEO_FULL_URL}1234",
                 serviceVersion = "v1",
             ),
         )

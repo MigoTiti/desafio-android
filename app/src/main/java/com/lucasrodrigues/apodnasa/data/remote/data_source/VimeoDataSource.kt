@@ -1,5 +1,6 @@
 package com.lucasrodrigues.apodnasa.data.remote.data_source
 
+import com.lucasrodrigues.apodnasa.BuildConfig
 import com.lucasrodrigues.apodnasa.data.remote.VimeoAPI
 import javax.inject.Inject
 
@@ -8,7 +9,7 @@ class VimeoDataSource @Inject constructor(
 ) {
 
     suspend fun fetchVimeoVideoUrl(url: String): String {
-        val newUrl = url.replace("https://player.vimeo.com/video/", "")
+        val newUrl = url.replace(BuildConfig.VIMEO_VIDEO_FULL_URL, "")
 
         val videoDetails = vimeoAPI.fetchVimeoVideoDetails(newUrl)
 

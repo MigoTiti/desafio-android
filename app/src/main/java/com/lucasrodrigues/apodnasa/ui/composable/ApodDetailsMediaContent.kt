@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -22,6 +23,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import com.lucasrodrigues.apodnasa.R
 import com.lucasrodrigues.apodnasa.domain.model.MediaContent
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
@@ -45,7 +47,7 @@ fun ApodDetailsMediaContent(
             )
             is MediaContent.Video -> ApodDetailsVideoContent(video = content)
             MediaContent.None -> Text(
-                text = "Nenhum conteúdo disponível",
+                text = stringResource(R.string.label_no_available_resource),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.h5,
             )

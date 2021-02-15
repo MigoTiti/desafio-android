@@ -10,19 +10,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.lucasrodrigues.apodnasa.R
 import com.lucasrodrigues.apodnasa.ui.composable.ApodDetailsMediaContent
-import com.lucasrodrigues.apodnasa.ui.composable.ApodTheme
+import com.lucasrodrigues.apodnasa.ui.composable.AppTheme
 import java.text.SimpleDateFormat
 
 @Composable
 fun ApodDetailsScreen(viewModel: ApodDetailsViewModel, navController: NavController) {
-    ApodTheme {
+    AppTheme {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(text = "Detalhes") },
+                    title = { Text(text = stringResource(R.string.label_details)) },
                     navigationIcon = {
                         IconButton(onClick = { navController.navigateUp() }) {
                             Icon(
@@ -56,7 +58,10 @@ fun ApodDetailsScreen(viewModel: ApodDetailsViewModel, navController: NavControl
                             style = MaterialTheme.typography.h5,
                         )
                         Text(
-                            text = "Criado em: ${SimpleDateFormat("dd/MM/yyyy").format(it.date)}",
+                            text = stringResource(
+                                R.string.label_created_at,
+                                SimpleDateFormat("dd/MM/yyyy").format(it.date),
+                            ),
                             modifier = Modifier.padding(bottom = 24.dp),
                             style = MaterialTheme.typography.caption,
                         )

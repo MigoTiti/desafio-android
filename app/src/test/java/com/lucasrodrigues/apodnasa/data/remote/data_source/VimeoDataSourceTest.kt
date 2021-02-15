@@ -1,5 +1,6 @@
 package com.lucasrodrigues.apodnasa.data.remote.data_source
 
+import com.lucasrodrigues.apodnasa.BuildConfig
 import com.lucasrodrigues.apodnasa.data.remote.VimeoAPI
 import com.lucasrodrigues.apodnasa.domain.model.dto.*
 import com.lucasrodrigues.apodnasa.domain.model.mapper.toServerString
@@ -51,7 +52,7 @@ class VimeoDataSourceTest {
         } returns mockk(relaxed = true)
 
         vimeoDataSource.fetchVimeoVideoUrl(
-            url = "https://player.vimeo.com/video/$expectedVideoId",
+            url = "${BuildConfig.VIMEO_VIDEO_FULL_URL}$expectedVideoId",
         )
 
         assertEquals(expectedVideoId, videoIdSlot.captured)

@@ -10,11 +10,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.lucasrodrigues.apodnasa.R
 import com.lucasrodrigues.apodnasa.domain.model.Failure
 import com.lucasrodrigues.apodnasa.extension.navigate
 import com.lucasrodrigues.apodnasa.ui.composable.*
@@ -22,10 +24,10 @@ import com.lucasrodrigues.apodnasa.ui.routing.Route
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, navController: NavController) {
-    ApodTheme {
+    AppTheme {
         Scaffold(
             topBar = {
-                TopAppBar(title = { Text(text = "NASA APOD") })
+                TopAppBar(title = { Text(text = stringResource(id = R.string.app_name)) })
             }
         ) {
             val lazyList = viewModel.previousApods.collectAsLazyPagingItems()
