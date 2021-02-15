@@ -32,12 +32,13 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 @Composable
 fun ApodDetailsMediaContent(
     content: MediaContent,
+    modifier: Modifier = Modifier
+        .fillMaxWidth()
+        .aspectRatio(16f / 12f),
     imageContentScale: ContentScale,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(16f / 12f),
+        modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
         when (content) {

@@ -2,6 +2,7 @@ package com.lucasrodrigues.apodnasa.ui.composable
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -20,16 +21,22 @@ import com.lucasrodrigues.apodnasa.extension.navigate
 import com.lucasrodrigues.apodnasa.ui.routing.Route
 
 @Composable
-fun TodayApodItem(apodLiveData: LiveData<Apod?>, navController: NavController) {
+fun TodayApodItem(
+    apodLiveData: LiveData<Apod?>,
+    modifier: Modifier = Modifier,
+    maxTitleLines: Int,
+    navController: NavController,
+    content: @Composable ColumnScope.(apod: Apod) -> Unit,
+) {
     val apod by apodLiveData.observeAsState()
 
     apod?.let {
         Column(
-            modifier = Modifier.clickable {
+            modifier = modifier.clickable {
                 navController.navigate(Route.APOD_DETAILS, listOf(it.date.time))
             }
         ) {
-            ApodDetailsMediaContent(it.content, ContentScale.Crop)
+            content(it)
             Column(
                 modifier = Modifier.padding(horizontal = 16.dp),
             ) {
@@ -42,6 +49,7 @@ fun TodayApodItem(apodLiveData: LiveData<Apod?>, navController: NavController) {
                     text = it.title,
                     modifier = Modifier.padding(bottom = 24.dp),
                     style = MaterialTheme.typography.h5,
+                    maxLines = maxTitleLines,
                 )
             }
         }
