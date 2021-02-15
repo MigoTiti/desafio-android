@@ -26,41 +26,25 @@ class ApodRemoteMediator(
                 PREPEND -> getKeyForFirstItem(state) ?: return MediatorResult.Success(
                     endOfPaginationReached = true
                 )
-                APPEND -> getKeyForLastItem(state) ?: return MediatorResult.Success(
-                    endOfPaginationReached = true
-                )
+                APPEND -> getKeyForLastItem() ?: Date().plusDays(1)
             }
 
             val resultList = apodRepository.getApodPage(referenceDate, state.config.pageSize)
 
             MediatorResult.Success(
-                endOfPaginationReached = resultList.isEmpty() || resultList.size < state.config.pageSize
+                endOfPaginationReached = resultList.isEmpty() || resultList.size < state.config.pageSize,
             )
         } catch (e: Exception) {
             MediatorResult.Error(e)
         }
     }
 
-    private fun getKeyForLastItem(
-        state: PagingState<Int, ApodDBO>
-    ): Date? {
-        return state.pages.lastOrNull {
-            it.data.isNotEmpty()
-        }?.data?.lastOrNull()
-            ?.let { apodDBO ->
-                Date(apodDBO.timestamp)
-            }
+    private suspend fun getKeyForFirstItem(state: PagingState<Int, ApodDBO>): Date? {
+        return apodRepository.getFirstItem()?.date?.plusDays(state.config.pageSize)
     }
 
-    private fun getKeyForFirstItem(
-        state: PagingState<Int, ApodDBO>
-    ): Date? {
-        return state.pages.firstOrNull {
-            it.data.isNotEmpty()
-        }?.data?.firstOrNull()
-            ?.let { apodDBO ->
-                Date(apodDBO.timestamp).plusDays(state.config.pageSize + 1)
-            }
+    private suspend fun getKeyForLastItem(): Date? {
+        return apodRepository.getLastItem()?.date
     }
 
     private fun getKeyClosestToCurrentPosition(

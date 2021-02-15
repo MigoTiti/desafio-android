@@ -41,6 +41,14 @@ class ApodRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getFirstItem(): Apod? {
+        return apodDao.getFirstItem()?.toApod()
+    }
+
+    override suspend fun getLastItem(): Apod? {
+        return apodDao.getLastItem()?.toApod()
+    }
+
     override fun getTodayApod(): Flow<Apod> {
         return apodDao
             .listenToMostRecentApod()

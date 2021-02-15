@@ -42,6 +42,80 @@ class ApodRepositoryImplTest {
     }
 
     @Test
+    fun `Get last Apod - Should call dao`() = runBlockingTest {
+        mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
+
+        coEvery {
+            apodDao.getLastItem()
+        } returns mockk(relaxed = true)
+
+        every {
+            any<ApodDBO>().toApod()
+        } returns mockk(relaxed = true)
+
+        apodRepositoryImpl.getLastItem()
+
+        coVerify {
+            apodDao.getLastItem()
+        }
+    }
+
+    @Test
+    fun `Get last Apod - Should map dbo`() = runBlockingTest {
+        mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
+
+        val expectedApodDBO = mockk<ApodDBO>(relaxed = true)
+        val expectedApod = mockk<Apod>(relaxed = true)
+
+        coEvery {
+            apodDao.getLastItem()
+        } returns expectedApodDBO
+
+        every {
+            expectedApodDBO.toApod()
+        } returns expectedApod
+
+        assertEquals(expectedApod, apodRepositoryImpl.getLastItem())
+    }
+
+    @Test
+    fun `Get first Apod - Should call dao`() = runBlockingTest {
+        mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
+
+        coEvery {
+            apodDao.getFirstItem()
+        } returns mockk(relaxed = true)
+
+        every {
+            any<ApodDBO>().toApod()
+        } returns mockk(relaxed = true)
+
+        apodRepositoryImpl.getFirstItem()
+
+        coVerify {
+            apodDao.getFirstItem()
+        }
+    }
+
+    @Test
+    fun `Get first Apod - Should map dbo`() = runBlockingTest {
+        mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
+
+        val expectedApodDBO = mockk<ApodDBO>(relaxed = true)
+        val expectedApod = mockk<Apod>(relaxed = true)
+
+        coEvery {
+            apodDao.getFirstItem()
+        } returns expectedApodDBO
+
+        every {
+            expectedApodDBO.toApod()
+        } returns expectedApod
+
+        assertEquals(expectedApod, apodRepositoryImpl.getFirstItem())
+    }
+
+    @Test
     fun `Get Apod - Should call dao`() = runBlockingTest {
         mockkStatic("com.lucasrodrigues.apodnasa.domain.model.mapper.ApodMapperKt")
 
@@ -158,12 +232,12 @@ class ApodRepositoryImplTest {
     }
 
     @Test
-    fun `Get Apod page - Start date should be the reference date plus (page size + 1)`() =
+    fun `Get Apod page - Start date should be the reference date minus one minus page size`() =
         runBlockingTest {
-            val pageSize = 20
+            val pageSize = 10
 
-            val referenceDate = createDate(10, Calendar.JANUARY, 2021)
-            val expectedStartDate = referenceDate.minusDays(pageSize + 1)
+            val referenceDate = createDate(20, Calendar.JANUARY, 2021)
+            val expectedStartDate = createDate(9, Calendar.JANUARY, 2021)
 
             val startDateSlot = slot<Date>()
 
