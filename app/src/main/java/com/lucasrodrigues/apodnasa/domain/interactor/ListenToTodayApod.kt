@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class ListenToTodayApod @Inject constructor(
     private val apodRepository: ApodRepository,
-) : UseCase<Apod, Unit>() {
-    override fun run(params: Unit): Flow<Apod> {
+) : UseCase<Apod?, Unit>() {
+    override fun run(params: Unit): Flow<Apod?> {
         return apodRepository.getTodayApod()
     }
 }

@@ -18,7 +18,7 @@ import com.lucasrodrigues.apodnasa.extension.navigate
 import com.lucasrodrigues.apodnasa.ui.routing.Route
 
 @Composable
-fun TodayApodItem(apodLiveData: LiveData<Apod>, navController: NavController) {
+fun TodayApodItem(apodLiveData: LiveData<Apod?>, navController: NavController) {
     val apod by apodLiveData.observeAsState()
 
     apod?.let {

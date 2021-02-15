@@ -44,11 +44,11 @@ class ApodRepositoryImpl @Inject constructor(
         return apodDao.getLastItem()?.toApod()
     }
 
-    override fun getTodayApod(): Flow<Apod> {
+    override fun getTodayApod(): Flow<Apod?> {
         return apodDao
             .listenToMostRecentApod()
             .map {
-                it.toApod()
+                it?.toApod()
             }
     }
 

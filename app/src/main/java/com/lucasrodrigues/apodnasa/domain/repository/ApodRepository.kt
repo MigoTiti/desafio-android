@@ -11,7 +11,7 @@ interface ApodRepository {
     suspend fun getApodPage(referenceDate: Date, pageSize: Int): List<ApodDBO>
 
     fun getApodPaginatedList(): Flow<PagingData<Apod>>
-    fun getTodayApod(): Flow<Apod>
+    fun getTodayApod(): Flow<Apod?>
     fun getApod(timestamp: Long): Flow<Apod>
     suspend fun getLastItem(): Apod?
     suspend fun getFirstItem(): Apod?
