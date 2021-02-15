@@ -1,4 +1,4 @@
-package com.lucasrodrigues.apodnasa.extensions
+package com.lucasrodrigues.apodnasa.extension
 
 import io.mockk.unmockkAll
 import org.junit.Assert.assertEquals

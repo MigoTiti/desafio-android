@@ -8,8 +8,8 @@ import com.lucasrodrigues.apodnasa.domain.model.dto.ApodDTO
 import com.lucasrodrigues.apodnasa.domain.model.mapper.toApod
 import com.lucasrodrigues.apodnasa.domain.model.mapper.toApodDBO
 import com.lucasrodrigues.apodnasa.domain.model.mapper.toServerString
-import com.lucasrodrigues.apodnasa.extensions.createDate
-import com.lucasrodrigues.apodnasa.extensions.minusDays
+import com.lucasrodrigues.apodnasa.extension.createDate
+import com.lucasrodrigues.apodnasa.extension.minusDays
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi

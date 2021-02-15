@@ -6,7 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.lucasrodrigues.apodnasa.ui.composables.ApodPagedList
+import com.lucasrodrigues.apodnasa.ui.composable.ApodPagedList
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, navController: NavController) {

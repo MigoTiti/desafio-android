@@ -1,4 +1,4 @@
-package com.lucasrodrigues.apodnasa.ui.composables
+package com.lucasrodrigues.apodnasa.ui.composable
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +13,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.lucasrodrigues.apodnasa.domain.model.Apod
-import com.lucasrodrigues.apodnasa.extensions.navigate
+import com.lucasrodrigues.apodnasa.extension.navigate
 import com.lucasrodrigues.apodnasa.ui.routing.Route
 import kotlinx.coroutines.flow.Flow
 

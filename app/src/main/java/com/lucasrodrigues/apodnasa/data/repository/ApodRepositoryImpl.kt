@@ -8,9 +8,9 @@ import com.lucasrodrigues.apodnasa.domain.model.dbo.ApodDBO
 import com.lucasrodrigues.apodnasa.domain.model.mapper.toApod
 import com.lucasrodrigues.apodnasa.domain.model.mapper.toApodDBO
 import com.lucasrodrigues.apodnasa.domain.repository.ApodRepository
-import com.lucasrodrigues.apodnasa.extensions.createDate
-import com.lucasrodrigues.apodnasa.extensions.minusDays
-import com.lucasrodrigues.apodnasa.components.ApodRemoteMediator
+import com.lucasrodrigues.apodnasa.extension.createDate
+import com.lucasrodrigues.apodnasa.extension.minusDays
+import com.lucasrodrigues.apodnasa.component.ApodRemoteMediator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.*
@@ -21,24 +21,19 @@ class ApodRepositoryImpl @Inject constructor(
     private val apodDao: ApodDao,
 ) : ApodRepository {
     override suspend fun getApodPage(referenceDate: Date, pageSize: Int): List<ApodDBO> {
-        try {
-            val pageStart = referenceDate.minusDays(1)
-            val pageEnd = pageStart.minusDays(pageSize)
+        val pageStart = referenceDate.minusDays(1)
+        val pageEnd = pageStart.minusDays(pageSize)
 
-            val apodList = apodDataSource.fetchApodList(
-                startDate = maxOf(pageEnd, createDate(16, Calendar.JUNE, 1995)),
-                endDate = minOf(pageStart, Date()),
-            ).map {
-                it.toApodDBO()
-            }
-
-            apodDao.insertList(apodList)
-
-            return apodList
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return emptyList()
+        val apodList = apodDataSource.fetchApodList(
+            startDate = maxOf(pageEnd, createDate(16, Calendar.JUNE, 1995)),
+            endDate = minOf(pageStart, Date()),
+        ).map {
+            it.toApodDBO()
         }
+
+        apodDao.insertList(apodList)
+
+        return apodList
     }
 
     override suspend fun getFirstItem(): Apod? {

@@ -1,4 +1,4 @@
-package com.lucasrodrigues.apodnasa.components
+package com.lucasrodrigues.apodnasa.component
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -7,7 +7,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.lucasrodrigues.apodnasa.domain.model.dbo.ApodDBO
 import com.lucasrodrigues.apodnasa.domain.repository.ApodRepository
-import com.lucasrodrigues.apodnasa.extensions.plusDays
+import com.lucasrodrigues.apodnasa.extension.plusDays
 import java.util.*
 
 @ExperimentalPagingApi
@@ -34,7 +34,7 @@ class ApodRemoteMediator(
             MediatorResult.Success(
                 endOfPaginationReached = resultList.isEmpty() || resultList.size < state.config.pageSize,
             )
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             MediatorResult.Error(e)
         }
     }

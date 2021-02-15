@@ -1,4 +1,4 @@
-package com.lucasrodrigues.apodnasa.extensions
+package com.lucasrodrigues.apodnasa.extension
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.*

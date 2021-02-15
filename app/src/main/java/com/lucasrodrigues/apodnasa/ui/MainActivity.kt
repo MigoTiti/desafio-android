@@ -8,7 +8,7 @@ import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.lucasrodrigues.apodnasa.extensions.routeComposable
+import com.lucasrodrigues.apodnasa.extension.routeComposable
 import com.lucasrodrigues.apodnasa.ui.apod_details.ApodDetailsScreen
 import com.lucasrodrigues.apodnasa.ui.home.HomeScreen
 import com.lucasrodrigues.apodnasa.ui.routing.Route

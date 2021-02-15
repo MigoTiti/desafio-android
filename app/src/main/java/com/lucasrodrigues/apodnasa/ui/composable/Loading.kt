@@ -1,4 +1,4 @@
-package com.lucasrodrigues.apodnasa.ui.composables
+package com.lucasrodrigues.apodnasa.ui.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
