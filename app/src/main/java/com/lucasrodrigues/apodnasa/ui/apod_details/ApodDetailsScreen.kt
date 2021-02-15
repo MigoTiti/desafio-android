@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.lucasrodrigues.apodnasa.ui.composable.ApodDetailsMediaContent
@@ -36,7 +37,10 @@ fun ApodDetailsScreen(viewModel: ApodDetailsViewModel, navController: NavControl
 
         apod?.let {
             Column {
-                ApodDetailsMediaContent(content = it.content)
+                ApodDetailsMediaContent(
+                    content = it.content,
+                    imageContentScale = ContentScale.Inside,
+                )
                 Column(
                     modifier = Modifier
                         .padding(

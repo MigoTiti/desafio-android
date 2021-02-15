@@ -17,7 +17,7 @@ import dev.chrisbanes.accompanist.imageloading.MaterialLoadingImage
 fun Image(
     url: String,
     contentScale: ContentScale,
-    backgroundColor: Color = Color.LightGray
+    backgroundColor: Color = Color.LightGray,
 ) {
     CoilImage(data = url) { imageState ->
         Box(

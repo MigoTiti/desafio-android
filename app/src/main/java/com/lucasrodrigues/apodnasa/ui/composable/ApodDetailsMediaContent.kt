@@ -5,13 +5,17 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
@@ -21,29 +25,37 @@ import com.google.android.exoplayer2.util.Util
 import com.lucasrodrigues.apodnasa.domain.model.MediaContent
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 @Composable
-fun ApodDetailsMediaContent(content: MediaContent) {
-    if (content is MediaContent.None)
-        return
-
+fun ApodDetailsMediaContent(
+    content: MediaContent,
+    imageContentScale: ContentScale,
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .aspectRatio(16f / 12f)
+            .aspectRatio(16f / 12f),
+        contentAlignment = Alignment.Center,
     ) {
         when (content) {
-            is MediaContent.Image -> ApodDetailsImageContent(image = content)
+            is MediaContent.Image -> ApodDetailsImageContent(
+                image = content,
+                contentScale = imageContentScale,
+            )
             is MediaContent.Video -> ApodDetailsVideoContent(video = content)
+            MediaContent.None -> Text(
+                text = "Nenhum conteúdo disponível",
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.h5,
+            )
         }
     }
 }
 
 @Composable
-fun ApodDetailsImageContent(image: MediaContent.Image) {
-    Image(image.hdUrl, ContentScale.Inside, Color.Black)
+fun ApodDetailsImageContent(image: MediaContent.Image, contentScale: ContentScale) {
+    Image(image.hdUrl, contentScale, Color.Black)
 }
 
 @Composable
@@ -79,11 +91,7 @@ fun YouTubeVideo(url: String) {
                 override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
                     val videoId = url.split("/").last().split("?").first()
 
-                    youTubePlayer.loadOrCueVideo(
-                        lifecycle,
-                        videoId,
-                        0f
-                    )
+                    youTubePlayer.cueVideo(videoId, 0f)
                 }
             })
         }

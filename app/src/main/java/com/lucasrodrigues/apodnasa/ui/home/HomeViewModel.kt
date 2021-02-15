@@ -11,8 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val listenToPreviousDaysApods: ListenToPreviousDaysApods,
-    private val listenToTodayApod: ListenToTodayApod,
+    listenToPreviousDaysApods: ListenToPreviousDaysApods,
+    listenToTodayApod: ListenToTodayApod,
 ) : ViewModel() {
 
     val todayApod = listenToTodayApod(Unit).asLiveData()
