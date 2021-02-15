@@ -1,16 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Theme.APODNASA" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">#FF0B3D91</item>
-        <item name="colorPrimaryVariant">#001862</item>
-        <item name="colorOnPrimary">#FFFFFFFF</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#FFFC3D21</item>
-        <item name="colorSecondaryVariant">#FF8D2415</item>
-        <item name="colorOnSecondary">#FFFFFFFF</item>
-        <!-- Status bar color. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primaryVariant</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondaryVariant</item>
+        <item name="colorOnSecondary">@color/white</item>
+
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
     </style>
 </resources>

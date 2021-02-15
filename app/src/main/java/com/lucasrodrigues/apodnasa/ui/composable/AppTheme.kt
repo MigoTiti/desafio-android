@@ -5,6 +5,8 @@ import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import com.lucasrodrigues.apodnasa.R
 
 @Composable
 fun AppTheme(
@@ -14,34 +16,34 @@ fun AppTheme(
     MaterialTheme(
         colors = if (dark)
             Colors(
-                primary = Color(0xFF0B3D91),
-                primaryVariant = Color(0xFF001862),
-                secondary = Color(0xFFFC3D21),
-                secondaryVariant = Color(0xFF8D2415),
-                background = Color(0xFF000000),
-                surface = Color(0xFF1F2021),
-                error = Color(0xFFFC3D21),
-                onPrimary = Color(0xFF000000),
-                onSecondary = Color(0xFF000000),
-                onError = Color(0xFF000000),
-                onBackground = Color(0xFFFFFFFF),
-                onSurface = Color(0xFFFFFFFF),
+                primary = colorResource(id = R.color.primary),
+                primaryVariant = colorResource(id = R.color.primaryVariant),
+                secondary = colorResource(id = R.color.secondary),
+                secondaryVariant = colorResource(id = R.color.secondaryVariant),
+                background = Color.Black,
+                surface = colorResource(id = R.color.darkGray),
+                error = colorResource(id = R.color.secondary),
+                onPrimary = Color.Black,
+                onSecondary = Color.Black,
+                onError = Color.Black,
+                onBackground = Color.White,
+                onSurface = Color.White,
                 isLight = false,
             )
         else
             Colors(
-                primary = Color(0xFF0B3D91),
-                primaryVariant = Color(0xFF001862),
-                secondary = Color(0xFFFC3D21),
-                secondaryVariant = Color(0xFF8D2415),
-                background = Color(0xFFFFFFFF),
-                surface = Color(0xFFFFFFFF),
-                error = Color(0xFFFC3D21),
-                onPrimary = Color(0xFFFFFFFF),
-                onSecondary = Color(0xFFFFFFFF),
-                onError = Color(0xFFFFFFFF),
-                onBackground = Color(0xFF000000),
-                onSurface = Color(0xFF000000),
+                primary = colorResource(id = R.color.primary),
+                primaryVariant = colorResource(id = R.color.primaryVariant),
+                secondary = colorResource(id = R.color.secondary),
+                secondaryVariant = colorResource(id = R.color.secondaryVariant),
+                background = Color.White,
+                surface = Color.White,
+                error = colorResource(id = R.color.secondary),
+                onPrimary = Color.White,
+                onSecondary = Color.White,
+                onError = Color.White,
+                onBackground = Color.Black,
+                onSurface = Color.Black,
                 isLight = true,
             ),
         content = content,
