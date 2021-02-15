@@ -43,10 +43,11 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavController) {
                             modifier = Modifier
                                 .fillMaxWidth(0.35f)
                                 .fillMaxHeight(),
-                            maxTitleLines = 1,
+                            showTitle = false,
                         ) {
                             ApodDetailsMediaContent(
                                 content = it.content,
+                                modifier = Modifier.fillMaxSize(),
                                 imageContentScale = ContentScale.Crop,
                             )
                         }
@@ -120,12 +121,12 @@ fun HomeScreen(viewModel: HomeViewModel, navController: NavController) {
                             TodayApodItem(
                                 apodLiveData = viewModel.todayApod,
                                 navController = navController,
-                                modifier = Modifier.height(200.dp),
-                                maxTitleLines = 2,
+                                showTitle = true,
                             ) {
                                 ApodDetailsMediaContent(
                                     content = it.content,
-                                    modifier = Modifier.fillMaxWidth(),
+                                    modifier = Modifier.fillMaxWidth()
+                                        .height(200.dp),
                                     imageContentScale = ContentScale.Crop,
                                 )
                             }

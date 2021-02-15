@@ -24,7 +24,7 @@ import com.lucasrodrigues.apodnasa.ui.routing.Route
 fun TodayApodItem(
     apodLiveData: LiveData<Apod?>,
     modifier: Modifier = Modifier,
-    maxTitleLines: Int,
+    showTitle: Boolean,
     navController: NavController,
     content: @Composable ColumnScope.(apod: Apod) -> Unit,
 ) {
@@ -37,21 +37,22 @@ fun TodayApodItem(
             }
         ) {
             content(it)
-            Column(
-                modifier = Modifier.padding(horizontal = 16.dp),
-            ) {
-                Text(
-                    text = stringResource(R.string.label_today),
-                    modifier = Modifier.padding(vertical = 8.dp),
-                    style = MaterialTheme.typography.caption,
-                )
-                Text(
-                    text = it.title,
-                    modifier = Modifier.padding(bottom = 24.dp),
-                    style = MaterialTheme.typography.h5,
-                    maxLines = maxTitleLines,
-                )
-            }
+            if (showTitle)
+                Column(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                ) {
+                    Text(
+                        text = stringResource(R.string.label_today),
+                        modifier = Modifier.padding(vertical = 8.dp),
+                        style = MaterialTheme.typography.caption,
+                    )
+                    Text(
+                        text = it.title,
+                        modifier = Modifier.padding(bottom = 24.dp),
+                        style = MaterialTheme.typography.h5,
+                        maxLines = 2,
+                    )
+                }
         }
     }
 }

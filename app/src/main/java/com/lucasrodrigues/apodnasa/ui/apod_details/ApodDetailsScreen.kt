@@ -65,6 +65,9 @@ fun ApodDetailsScreen(viewModel: ApodDetailsViewModel, navController: NavControl
                             item {
                                 ApodDetailsMediaContent(
                                     content = it.content,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(300.dp),
                                     imageContentScale = ContentScale.Inside,
                                 )
                             }
