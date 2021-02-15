@@ -11,7 +11,6 @@ interface ApodAPI {
     suspend fun fetchApodList(
         @Query("start_date") startDate: String,
         @Query("end_date") endDate: String,
-        @Query("thumbs") showThumbs: String = "True",
         @Query("api_key") apiKey: String = BuildConfig.APOD_API_KEY,
     ): List<ApodDTO>
 }

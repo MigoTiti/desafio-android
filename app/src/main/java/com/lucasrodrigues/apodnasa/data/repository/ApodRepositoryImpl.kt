@@ -1,6 +1,7 @@
 package com.lucasrodrigues.apodnasa.data.repository
 
 import androidx.paging.*
+import com.lucasrodrigues.apodnasa.BuildConfig
 import com.lucasrodrigues.apodnasa.data.local.dao.ApodDao
 import com.lucasrodrigues.apodnasa.data.remote.data_source.ApodDataSource
 import com.lucasrodrigues.apodnasa.domain.model.Apod
@@ -11,13 +12,14 @@ import com.lucasrodrigues.apodnasa.domain.repository.ApodRepository
 import com.lucasrodrigues.apodnasa.extension.createDate
 import com.lucasrodrigues.apodnasa.extension.minusDays
 import com.lucasrodrigues.apodnasa.component.ApodRemoteMediator
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import com.lucasrodrigues.apodnasa.data.remote.data_source.VimeoDataSource
+import kotlinx.coroutines.flow.*
 import java.util.*
 import javax.inject.Inject
 
 class ApodRepositoryImpl @Inject constructor(
     private val apodDataSource: ApodDataSource,
+    private val vimeoDataSource: VimeoDataSource,
     private val apodDao: ApodDao,
 ) : ApodRepository {
     override suspend fun getApodPage(referenceDate: Date, pageSize: Int): List<ApodDBO> {
@@ -27,13 +29,26 @@ class ApodRepositoryImpl @Inject constructor(
         val apodList = apodDataSource.fetchApodList(
             startDate = maxOf(pageEnd, createDate(16, Calendar.JUNE, 1995)),
             endDate = minOf(pageStart, Date()),
-        ).map {
+        )
+
+        apodList.filter {
+            it.media_type == "video" && it.url?.startsWith(BuildConfig.VIMEO_BASE_URL) == true
+        }.asFlow()
+            .flatMapMerge(concurrency = pageSize) {
+                flow {
+                    it.url = vimeoDataSource.fetchVimeoVideoUrl(it.url!!)
+
+                    emit(Unit)
+                }
+            }.collect()
+
+        val newApodList = apodList.map {
             it.toApodDBO()
         }
 
-        apodDao.insertList(apodList)
+        apodDao.insertList(newApodList)
 
-        return apodList
+        return newApodList
     }
 
     override suspend fun getFirstItem(): Apod? {

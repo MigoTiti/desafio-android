@@ -5,7 +5,7 @@ data class ApodDTO(
     val title: String,
     val explanation: String,
     val hdurl: String? = null,
-    val url: String? = null,
+    var url: String? = null,
     val media_type: String,
     val thumbnail_url: String? = null,
     val serviceVersion: String,

@@ -14,10 +14,10 @@ fun ApodDTO.toApod(): Apod {
         content = when (media_type) {
             "image" -> MediaContent.Image(
                 thumbnailUrl = url!!,
-                hdUrl = hdurl ?: url,
+                hdUrl = hdurl ?: url!!,
             )
             "video" -> MediaContent.Video(
-                thumbnailUrl = thumbnail_url!!,
+                thumbnailUrl = thumbnail_url ?: "",
                 url = url!!,
             )
             else -> MediaContent.None
@@ -48,7 +48,7 @@ fun ApodDBO.toApod(): Apod {
                 hdUrl = imageHdUrl!!,
             )
             "video" -> MediaContent.Video(
-                thumbnailUrl = videoThumbnailUrl!!,
+                thumbnailUrl = videoThumbnailUrl ?: "",
                 url = contentUrl!!,
             )
             else -> MediaContent.None
